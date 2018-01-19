@@ -9,6 +9,8 @@
  #include "keycode.h"
  #include "action.h"
 
+#ifdef KBD_ONEKEY
  const action_t actionmaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{{KC_A}}
  };
+#endif
