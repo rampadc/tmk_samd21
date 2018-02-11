@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <stdint.h>
+#include <stdio.h>
 #include "keyboard.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -126,6 +127,7 @@ void keyboard_task(void)
 						.pressed = (matrix_row & ((matrix_row_t)1<<c)),
 						.time = (timer_read() | 1) /* time should not be 0 */
 					};
+
 					action_exec(e);
 					hook_matrix_change(e);
 					// record a processed key

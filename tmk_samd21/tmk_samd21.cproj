@@ -275,6 +275,8 @@
         <board id="board.samd21_xplained_pro" value="Add" config="" content-id="Atmel.ASF" />
       </framework-data>
     </AsfFrameworkConfig>
+    <ResetRule>0</ResetRule>
+    <EraseKey />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -483,8 +485,8 @@
       <Value>EXTINT_CALLBACK_MODE=true</Value>
       <Value>SYSTICK_MODE</Value>
       <Value>TC_ASYNC=true</Value>
-      <Value>MATRIX_COLS=1</Value>
-      <Value>MATRIX_ROWS=1</Value>
+      <Value>MATRIX_COLS=16</Value>
+      <Value>MATRIX_ROWS=8</Value>
       <Value>xKBD_ONEKEY</Value>
       <Value>NO_ACTION_TAPPING</Value>
       <Value>NO_ACTION_LAYER</Value>
@@ -758,6 +760,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\keyboard\t430\matrix.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\keyboard\t430\matrix_pins.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\keyboard\t430\matrix_pins.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\timer.c">
