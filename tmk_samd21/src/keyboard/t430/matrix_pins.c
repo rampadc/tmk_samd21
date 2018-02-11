@@ -31,12 +31,12 @@ volatile uint32_t sense_mux[NUMBER_OF_SENSE_PINS] = {
 	MUX_PA20A_EIC_EXTINT4, MUX_PA21A_EIC_EXTINT5, MUX_PB06A_EIC_EXTINT6, MUX_PB07A_EIC_EXTINT7
 };
 
-// 8x driving pins
+// 8x driving pins, PA13 did not work on dev board, switched to PA27 for channel 14
 volatile uint32_t drive_pins[NUMBER_OF_DRIVING_PINS] = {
 	PIN_PB04, PIN_PB05, PIN_PB08, PIN_PB09,
 	PIN_PA08, PIN_PA09, PIN_PA10, PIN_PA11,
 	PIN_PB10, PIN_PB11, PIN_PB13, PIN_PB14,
-	PIN_PB15, PIN_PA12, PIN_PA13, PIN_PA15
+	PIN_PB15, PIN_PA12, PIN_PA27, PIN_PA15
 };
 
 /************************************************************************/
@@ -46,7 +46,7 @@ volatile Pin_t drive_ports[NUMBER_OF_DRIVING_PINS] = {
 	  {((uint32_t *) &REG_PORT_OUT1), PORT_PB04},  {((uint32_t *) &REG_PORT_OUT1), PORT_PB05},  {((uint32_t *) &REG_PORT_OUT1), PORT_PB08},  {((uint32_t *) &REG_PORT_OUT1), PORT_PB09},
 	  {((uint32_t *) &REG_PORT_OUT0), PORT_PA08},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA09},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA10},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA11},
 	  {((uint32_t *) &REG_PORT_OUT1), PORT_PB10},  {((uint32_t *) &REG_PORT_OUT1), PORT_PB11},  {((uint32_t *) &REG_PORT_OUT1), PORT_PB13},  {((uint32_t *) &REG_PORT_OUT1), PORT_PB14},
-	  {((uint32_t *) &REG_PORT_OUT1), PORT_PB15},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA12},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA13},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA15}
+	  {((uint32_t *) &REG_PORT_OUT1), PORT_PB15},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA12},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA27},  {((uint32_t *) &REG_PORT_OUT0), PORT_PA15}
 };
 
 volatile Pin_t sense_ports[NUMBER_OF_SENSE_PINS] = {
