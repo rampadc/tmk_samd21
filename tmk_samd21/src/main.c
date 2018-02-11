@@ -6,6 +6,7 @@
 #include "host.h"
 #include "timer.h"
 
+bool eic_interrupt_detected();
 void hook_timer_1ms(void);
 
 extern bool needs_matrix_scan;
@@ -13,6 +14,7 @@ extern host_driver_t samd21_driver;
 
 extern bool usb_suspended;
 extern bool usb_remote_wakeup_enabled;
+
 
 int main (void)
 {
@@ -34,22 +36,30 @@ int main (void)
 
 	/* Sleep in main, USB callbacks are handled in usb_callbacks.c */
 	while (1) {
-		if (usb_suspended && usb_remote_wakeup_enabled) {
-			udc_remotewakeup();
+		needs_matrix_scan = eic_interrupt_detected();
+		
+		if (needs_matrix_scan) {
+			if (usb_suspended && usb_remote_wakeup_enabled) {
+				udc_remotewakeup();
+			}
+			keyboard_task();
 		}
-		keyboard_task();
-		//
-		//if (needs_matrix_scan) {
-			//
-		//}
 		
 		sleepmgr_enter_sleep();
 	}
 }
 
 void hook_timer_1ms() {
-	// toggle every ~100ms
-	//if (timer_read32() % 100 == 0) {
-		//port_pin_toggle_output_level(LED_0_PIN);
-	//}
+
+}
+
+bool eic_interrupt_detected() {
+	uint8_t i;
+	for (i = 0; i < 15; i++) {
+		if (extint_chan_is_detected(i)) {
+			extint_chan_clear_detected(i);
+			return true;
+		}
+	}
+	return false;
 }

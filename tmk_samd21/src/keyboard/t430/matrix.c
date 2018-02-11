@@ -33,8 +33,6 @@ static void configure_matrix_io(void);
 static void configure_inputs(void);
 static void configure_outputs(void);
 static void configure_extint_channels(void);
-static void configure_extint_callbacks(void);
-static void column_interrupt_callback(void);
 
 volatile bool needs_matrix_scan = false;
 
@@ -104,13 +102,9 @@ void configure_matrix_io() {
 	
 	out_set_high_all();
 
-	//configure_extint_channels();
-	//configure_extint_callbacks();
-
-	//uint8_t i;
-	//for (i = 0; i < NUMBER_OF_DRIVING_PINS; i++) {
-		//port_pin_set_output_level(drive_pins[i], DRIVE_LOW);
-	//}
+	configure_extint_channels();
+	
+	out_set_low_all();
 }
 
 void configure_inputs() {
@@ -138,14 +132,6 @@ void configure_outputs() {
 	}
 }
 
-void column_interrupt_callback() {
-	// set all driving pins high
-	out_set_high_all();
-	
-	// awake from slumber
-	needs_matrix_scan = true;	
-}
-
 void configure_extint_channels() {
 	struct extint_chan_conf config_extint_chan;
 	extint_chan_get_config_defaults(&config_extint_chan);
@@ -159,14 +145,6 @@ void configure_extint_channels() {
 		config_extint_chan.gpio_pin = sense_eic_pins[i];
 		config_extint_chan.gpio_pin_mux = sense_mux[i];
 		extint_chan_set_config(i, &config_extint_chan);
-	}
-}
-
-void configure_extint_callbacks() {
-	uint8_t i;
-	for (i = 0; i < NUMBER_OF_SENSE_PINS; i++) {
-		extint_register_callback(column_interrupt_callback, i, EXTINT_CALLBACK_TYPE_DETECT);
-		extint_chan_enable_callback(i, EXTINT_CALLBACK_TYPE_DETECT);
 	}
 }
 
