@@ -67,13 +67,11 @@ uint8_t matrix_scan() {
 			bool pin_state = in_get_value(sense_ports[s]);
 			if (pin_state == KEY_DOWN) {
 				matrix[s] |= 1 << d;
-				//printf("d [%d][%d]\r\n", s, d);
+				//printf("%d,%d\r\n", s, d);
 				} else {
 				matrix[s] &= ~(1 << d);
 			}
 		}
-		
-		//delay_us(50);
 		// reset test output pin
 		out_set_high(drive_ports[d]);
 	}
