@@ -25,8 +25,8 @@ int main (void)
 	cpu_irq_enable();
 	sleepmgr_init();
 
-	delay_init();
 	timer_init();
+	delay_init();
 	
 	#ifndef NO_PRINT
 	stdio_usb_init();
@@ -34,7 +34,7 @@ int main (void)
 	udc_start();
 	#endif
 
-	backlight_init();
+	//backlight_init();
 	keyboard_init();
 	host_set_driver(&samd21_driver);
 

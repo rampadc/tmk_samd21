@@ -61,6 +61,7 @@ void backlight_init(void) {
 }
 
 void backlight_set(uint8_t level) {
+	#ifdef BACKLIGHT_ENABLE
 	if (backlight_config.enable) {
 		uint8_t cc0 = backlight_config.level * 10;
 		tc_set_compare_value(&tc_instance, TC_COMPARE_CAPTURE_CHANNEL_0, cc0);
@@ -68,6 +69,7 @@ void backlight_set(uint8_t level) {
 	} else {
 		tc_disable(&tc_instance);
 	}
+	#endif
 }
 
 /************************************************************************/
