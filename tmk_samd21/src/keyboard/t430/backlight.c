@@ -68,6 +68,8 @@ void backlight_timer_logic(void) {
 		if (backlight_count == BACKLIGHT_LEVELS) {
 			backlight_count = 0;
 		}
+	} else {
+		out_set_low(backlight_pin);
 	}
 }
 /************************************************************************/
@@ -114,6 +116,7 @@ void backlight_step(void)
 		backlight_config.level = 0;
 	}
 	backlight_config.enable = !!backlight_config.level;
+	
 	backlight_set(backlight_config.level);
 	#endif
 }

@@ -39,6 +39,10 @@ volatile uint32_t drive_pins[NUMBER_OF_DRIVING_PINS] = {
 	PIN_PB15, PIN_PA12, PIN_PA27, PIN_PA15
 };
 
+volatile uint32_t fn_pin_asf = PIN_PA28;
+volatile uint32_t fn_mux_asf = MUX_PA28A_EIC_EXTINT8;
+Pin_t fn_pin = {((uint32_t *) &REG_PORT_IN0), PORT_PA28};
+	
 Pin_t backlight_pin = {((uint32_t *) &REG_PORT_OUT1), PORT_PB12};
 
 /************************************************************************/

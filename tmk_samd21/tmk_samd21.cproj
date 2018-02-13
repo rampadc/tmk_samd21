@@ -489,7 +489,7 @@
       <Value>MATRIX_ROWS=8</Value>
       <Value>xKBD_ONEKEY</Value>
       <Value>NO_ACTION_TAPPING</Value>
-      <Value>NO_ACTION_LAYER</Value>
+      <Value>xNO_ACTION_LAYER</Value>
       <Value>NO_ACTION_ONESHOT</Value>
       <Value>KBD_T430</Value>
       <Value>BACKLIGHT_ENABLE</Value>

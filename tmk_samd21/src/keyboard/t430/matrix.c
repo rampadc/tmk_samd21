@@ -15,10 +15,14 @@
 
 #include "matrix.h"
 #include "keyboard.h"
+#include "action_layer.h"
 
 #include "io_pins.h"
 
 #ifdef KBD_T430
+
+#define BASE_LAYER		0
+#define FN_LAYER		1
 
 #define KEY_DOWN		false // active-low
 #define DRIVE_LOW		false
@@ -33,6 +37,7 @@ static void configure_matrix_io(void);
 static void configure_inputs(void);
 static void configure_outputs(void);
 static void configure_extint_channels(void);
+static void configure_stray_pins(void);
 
 volatile bool needs_matrix_scan = false;
 
@@ -42,6 +47,10 @@ extern uint32_t sense_mux[];
 extern uint32_t drive_pins[];
 extern Pin_t drive_ports[];
 extern Pin_t sense_ports[];
+
+extern uint32_t fn_pin_asf;
+extern uint32_t fn_mux_asf;
+extern Pin_t fn_pin;
 
 /************************************************************************/
 /* Matrix implementation functions                                      */
@@ -53,9 +62,21 @@ void matrix_init(void) {
 
 	// prep for column interrupt mode
 	configure_matrix_io();
+	configure_stray_pins();
+	
+	out_set_high_all();
+	configure_extint_channels();
+	out_set_low_all();
+	
 }
 
 uint8_t matrix_scan() {
+	if (!in_get_value(fn_pin)) {
+		layer_on(1);
+		} else {
+		layer_off(1);
+	}
+	
 	uint8_t s, d;
 	//printf("scan\r\n");
 	out_set_high_all();
@@ -94,15 +115,19 @@ bool matrix_is_on(uint8_t row, uint8_t col) {
 /************************************************************************/
 /* Configuration functions                                              */
 /************************************************************************/
+void configure_stray_pins() {
+	struct port_config pin_conf;
+	port_get_config_defaults(&pin_conf);
+
+	pin_conf.direction  = PORT_PIN_DIR_INPUT;
+	pin_conf.input_pull = PORT_PIN_PULL_UP;
+
+	port_pin_set_config(fn_pin_asf, &pin_conf);
+}
+
 void configure_matrix_io() {
 	configure_inputs();
 	configure_outputs();
-	
-	out_set_high_all();
-
-	configure_extint_channels();
-	
-	out_set_low_all();
 }
 
 void configure_inputs() {
@@ -144,6 +169,10 @@ void configure_extint_channels() {
 		config_extint_chan.gpio_pin_mux = sense_mux[i];
 		extint_chan_set_config(i, &config_extint_chan);
 	}
+	
+	config_extint_chan.gpio_pin = fn_pin_asf;
+	config_extint_chan.gpio_pin_mux = fn_mux_asf;
+	extint_chan_set_config(8, &config_extint_chan);
 }
 
 #endif
