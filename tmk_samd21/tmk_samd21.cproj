@@ -492,6 +492,7 @@
       <Value>NO_ACTION_LAYER</Value>
       <Value>NO_ACTION_ONESHOT</Value>
       <Value>KBD_T430</Value>
+      <Value>BACKLIGHT_ENABLE</Value>
     </ListValues>
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.IncludePaths>
@@ -753,6 +754,9 @@
     <Compile Include="src\action_util.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\keyboard\t430\backlight.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\keyboard\t430\keymap.c">
       <SubType>compile</SubType>
     </Compile>
@@ -859,9 +863,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\tmk_core\common\action_util.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\tmk_core\common\backlight.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\tmk_core\common\backlight.h">

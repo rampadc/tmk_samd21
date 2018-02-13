@@ -3,6 +3,8 @@
 #include <inttypes.h>
 
 #include "keyboard.h"
+#include "backlight.h"
+
 #include "host.h"
 #include "timer.h"
 
@@ -24,13 +26,15 @@ int main (void)
 	sleepmgr_init();
 
 	delay_init();
-
+	timer_init();
+	
 	#ifndef NO_PRINT
 	stdio_usb_init();
 	#else
 	udc_start();
 	#endif
 
+	backlight_init();
 	keyboard_init();
 	host_set_driver(&samd21_driver);
 
