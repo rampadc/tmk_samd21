@@ -6,7 +6,7 @@
 */
 
 #include <asf.h>
-#include "matrix_pins.h"
+#include "io_pins.h"
 
 #define NUMBER_OF_SENSE_PINS			MATRIX_ROWS
 #define NUMBER_OF_DRIVING_PINS		MATRIX_COLS
@@ -38,6 +38,8 @@ volatile uint32_t drive_pins[NUMBER_OF_DRIVING_PINS] = {
 	PIN_PB10, PIN_PB11, PIN_PB13, PIN_PB14,
 	PIN_PB15, PIN_PA12, PIN_PA27, PIN_PA15
 };
+
+Pin_t backlight_pin = {((uint32_t *) &REG_PORT_OUT1), PORT_PB12};
 
 /************************************************************************/
 /* Convenience pins definitions for speedy matrix scans                 */

@@ -16,7 +16,7 @@
 #include "matrix.h"
 #include "keyboard.h"
 
-#include "matrix_pins.h"
+#include "io_pins.h"
 
 #ifdef KBD_T430
 

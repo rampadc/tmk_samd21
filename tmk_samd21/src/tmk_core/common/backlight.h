@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_LEVELS 10
+#define BACKLIGHT_PORT PORT_PB12
 #endif
 
 typedef union {
@@ -40,5 +41,7 @@ void backlight_toggle(void);
 void backlight_step(void);
 void backlight_set(uint8_t level);
 void backlight_level(uint8_t level);
+
+void backlight_timer_logic(void);
 
 #endif

@@ -6,8 +6,8 @@
  */ 
 
 
-#ifndef MATRIX_PINS_H_
-#define MATRIX_PINS_H_
+#ifndef IO_PINS_H_
+#define IO_PINS_H_
 
 typedef struct {
 	volatile uint32_t *portw;

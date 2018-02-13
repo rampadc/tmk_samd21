@@ -4,6 +4,7 @@
 
 #include "keyboard.h"
 #include "backlight.h"
+#include "io_pins.h"
 
 #include "host.h"
 #include "timer.h"
@@ -17,7 +18,6 @@ extern host_driver_t samd21_driver;
 extern bool usb_suspended;
 extern bool usb_remote_wakeup_enabled;
 
-
 int main (void)
 {
 	system_init();
@@ -25,18 +25,18 @@ int main (void)
 	cpu_irq_enable();
 	sleepmgr_init();
 
+	backlight_init();
 	timer_init();
 	delay_init();
+	
+	keyboard_init();
+	host_set_driver(&samd21_driver);
 	
 	#ifndef NO_PRINT
 	stdio_usb_init();
 	#else
 	udc_start();
 	#endif
-
-	//backlight_init();
-	keyboard_init();
-	host_set_driver(&samd21_driver);
 
 	/* Sleep in main, USB callbacks are handled in usb_callbacks.c */
 	while (1) {
@@ -54,7 +54,7 @@ int main (void)
 }
 
 void hook_timer_1ms() {
-
+	backlight_timer_logic();
 }
 
 bool eic_interrupt_detected() {
