@@ -4,9 +4,20 @@ Runs TMK keyboard core on top of a SAM D21 microcontroller. This project is comp
 
 Substantial portions of TMK core removed due to incompatibility with SAM D21 as well as they do not fit my needs.
 
-As of 02/01/18, LEDs, custom layered matrices, mouse and sleep LEDs have not been tested or implemented. 
+----------------------------------------------------------------------------
+T430 example implemented:
+ - Keymap layer switching with FN pin
+ - LED callbacks (numlock, capslock, scroll-lock)
+ - Backlight
+ - Remote wake-uo
 
-Configured with:
+To do:
+ - TrackPoint
+ - Sleep LED (on power button)
+ - Bluetooth HID support (BTLC1000ZR)
+ - Media, consumer keycodes (included in keymap but OS not acknowledging)
+
+Base USB HID project configured with:
 - 1ms timer interrupt
 - Delay service
 - STDIO over CDC
