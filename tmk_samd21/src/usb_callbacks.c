@@ -9,6 +9,7 @@
 #include <stdint.h>
 
 #include "conf_usb.h"
+#include "led.h"
 
 volatile bool usb_remote_wakeup_enabled = false;
 volatile bool usb_suspended = false;
@@ -89,7 +90,7 @@ void hid_kbd_callback_disable(void) {
 	usb_hid_kbd_enabled = false;
 }
 void hid_kbd_callback_led(uint8_t value) {
-	led_states = value;
+	led_set(value);
 }
 
 /************************************************************************/
