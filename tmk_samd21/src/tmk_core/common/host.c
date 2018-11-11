@@ -103,3 +103,23 @@ uint16_t host_last_consumer_report(void)
 {
     return last_consumer_report;
 }
+
+void host_keyboard_down(uint8_t key) {
+	if (!driver) return;
+	(*driver->send_keyboard_keyDown)(key);
+}
+
+void host_keyboard_up(uint8_t key) {
+	if (!driver) return;
+	(*driver->send_keyboard_keyUp)(key);
+}
+
+void host_keyboard_modifier_up(uint8_t mods) {
+	if (!driver) return;
+	(*driver->send_keyboard_modifierUp)(mods);
+}
+
+void host_keyboard_modifier_down(uint8_t mods) {
+	if (!driver) return;
+	(*driver->send_keyboard_modifierDown)(mods);
+}

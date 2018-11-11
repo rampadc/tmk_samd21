@@ -29,8 +29,14 @@ int main (void)
 	timer_init();
 	delay_init();
 	
+#ifdef TRACKPOINT
+
+#endif
+
+#ifdef KEYBOARD_T430
 	keyboard_init();
 	host_set_driver(&samd21_driver);
+#endif
 	
 	#ifndef NO_PRINT
 	stdio_usb_init();
@@ -40,6 +46,7 @@ int main (void)
 
 	/* Sleep in main, USB callbacks are handled in usb_callbacks.c */
 	while (1) {
+#ifdef KEYBOARD_T430
 		needs_matrix_scan = eic_interrupt_detected();
 		
 		if (needs_matrix_scan) {
@@ -48,13 +55,15 @@ int main (void)
 			}
 			keyboard_task();
 		}
-		
+#endif
 		sleepmgr_enter_sleep();
 	}
 }
 
 void hook_timer_1ms() {
+#ifdef BACKLIGHT
 	backlight_timer_logic();
+#endif
 }
 
 bool eic_interrupt_detected() {

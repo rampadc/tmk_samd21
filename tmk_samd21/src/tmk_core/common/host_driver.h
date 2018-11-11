@@ -28,6 +28,12 @@ typedef struct {
     void (*send_mouse)(report_mouse_t *);
     void (*send_system)(uint16_t);
     void (*send_consumer)(uint16_t);
+	
+	// Atmel ASF HAL can send individual keys only
+	void (*send_keyboard_keyUp)(uint8_t);
+	void (*send_keyboard_keyDown)(uint8_t);
+	void (*send_keyboard_modifierUp)(uint8_t);
+	void (*send_keyboard_modifierDown)(uint8_t);
 } host_driver_t;
 
 #endif

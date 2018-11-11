@@ -22,7 +22,6 @@ Modified 02/01/18: functions are modified to support ASF UDC HID functions
 #include "action_util.h"
 #include "timer.h"
 
-#include <asf.h>
 #include <stdint.h>
 
 static uint8_t real_mods = 0;
@@ -63,12 +62,12 @@ void send_keyboard_report(void) {
 /* key */
 void add_key(uint8_t key)
 {
-	udi_hid_kbd_down(key);
+	host_keyboard_down(key);
 }
 
 void del_key(uint8_t key)
 {
-	udi_hid_kbd_up(key);
+	host_keyboard_up(key);
 }
 
 void clear_keys(void)
@@ -84,11 +83,11 @@ void clear_keys(void)
 /* modifier */
 uint8_t get_mods(void) { return real_mods; }
 void add_mods(uint8_t mods) {
-	udi_hid_kbd_modifier_down(mods);
+	host_keyboard_modifier_down(mods);
 	real_mods |= mods;
 }
 void del_mods(uint8_t mods) {
-	udi_hid_kbd_modifier_up(mods);
+	host_keyboard_modifier_up(mods);
 	real_mods &= ~mods;
 }
 void set_mods(uint8_t mods) {
@@ -105,11 +104,11 @@ uint8_t get_weak_mods(void) {
 	return weak_mods;
 }
 void add_weak_mods(uint8_t mods) {
-	udi_hid_kbd_modifier_down(mods);
+	host_keyboard_modifier_down(mods);
 	weak_mods |= mods;
 }
 void del_weak_mods(uint8_t mods) {
-	udi_hid_kbd_modifier_up(mods);
+	host_keyboard_modifier_up(mods);
 	weak_mods &= ~mods;
 }
 void set_weak_mods(uint8_t mods) {
