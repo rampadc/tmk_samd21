@@ -1049,24 +1049,6 @@
     <Compile Include="src\tmk_core\common\wait.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\tmk_core\protocol\pbuff.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\tmk_core\protocol\ps2.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\tmk_core\protocol\ps2_interrupt.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\tmk_core\protocol\ps2_io.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\tmk_core\protocol\ps2_mouse.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\tmk_core\protocol\ps2_mouse.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\tmk_core\ring_buffer.h">
       <SubType>compile</SubType>
     </Compile>
