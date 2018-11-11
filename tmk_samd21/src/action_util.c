@@ -27,35 +27,12 @@ Modified 02/01/18: functions are modified to support ASF UDC HID functions
 static uint8_t real_mods = 0;
 static uint8_t weak_mods = 0;
 
-// TODO: pointer variable is not needed
-//report_keyboard_t keyboard_report = {};
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
-
-#ifndef NO_ACTION_ONESHOT
-static int8_t oneshot_mods = 0;
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-static int16_t oneshot_time = 0;
-#endif
-#endif
-
 
 void send_keyboard_report(void) {
 	keyboard_report->mods  = real_mods;
 	keyboard_report->mods |= weak_mods;
-	#ifndef NO_ACTION_ONESHOT
-	if (oneshot_mods) {
-		#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-		if (TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT) {
-			dprintf("Oneshot: timeout\n");
-			clear_oneshot_mods();
-		}
-		#endif
-		keyboard_report->mods |= oneshot_mods;
-		if (has_anykey()) {
-			clear_oneshot_mods();
-		}
-	}
-	#endif
+
 	host_keyboard_send(keyboard_report);
 }
 
@@ -118,48 +95,4 @@ void set_weak_mods(uint8_t mods) {
 void clear_weak_mods(void) {
 	// todo: implement this by exposing udi_hid_kbd_report
 	weak_mods = 0;
-}
-
-/* Oneshot modifier */
-#ifndef NO_ACTION_ONESHOT
-void set_oneshot_mods(uint8_t mods)
-{
-	oneshot_mods = mods;
-	#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-	oneshot_time = timer_read();
-	#endif
-}
-void clear_oneshot_mods(void)
-{
-	oneshot_mods = 0;
-	#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-	oneshot_time = 0;
-	#endif
-}
-#endif
-
-
-
-
-/*
-* inspect keyboard state
-*/
-uint8_t has_anykey(void)
-{
-	uint8_t cnt = 0;
-	for (uint8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
-		if (keyboard_report->raw[i])
-		cnt++;
-	}
-	return cnt;
-}
-
-uint8_t has_anymod(void)
-{
-	return bitpop(real_mods);
-}
-
-uint8_t get_first_key(void)
-{
-	return keyboard_report->keys[0];
 }
