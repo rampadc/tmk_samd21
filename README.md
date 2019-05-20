@@ -1,5 +1,7 @@
 # tmk_samd21
 
+![maintenance-no-2018](https://img.shields.io/maintenance/no/2018.svg)
+
 Runs TMK keyboard core on top of a SAM D21 microcontroller. This project is compiled in Atmel Studio 7 and runs on top of ASF. 
 
 Substantial portions of TMK core removed due to incompatibility with SAM D21 as well as they do not fit my needs.
